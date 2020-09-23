@@ -51,6 +51,9 @@ function processCommand(receivedMessage) {
 		helloCommand(arguments, receivedMessage)
 	} else if (primaryCommand == "love") {
 		loveCommand(arguments, receivedMessage)
+	} else if (primaryCommand == "role") {
+		roleCommand(arguments, receivedMessage)
+
     } else {
         receivedMessage.channel.send("I don't understand the command. Try `!help`")
     }
@@ -72,11 +75,12 @@ function loveCommand(arguements, receivedMessage){
 	if(receivedMessage.author.id === eros)
 	{
     	
-		receivedMessage.channel.send("... love you too" + receivedMessage.author.toString() + ":heart:")	
+		receivedMessage.channel.send("... love you too." + receivedMessage.author.toString() + ":heart:")	
+		receivedMessage.react("💕")
 	}
 	else{
 		
-		receivedMessage.channel.send("youre wasting my time")
+		receivedMessage.channel.send("You're wasting my time.")
 
 }
 }
@@ -103,7 +107,14 @@ function multiplyCommand(arguments, receivedMessage) {
     receivedMessage.channel.send("The product of " + arguments + " multiplied together is: " + product.toString())
 }
 
-
+function roleCommand(arguments, receivedMessage) {
+    if (arguments.length >= 1) {
+        
+    } else {
+		
+        receivedMessage.channel.send("Please specify a valid role.")
+    }
+}
 
 
 
