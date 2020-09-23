@@ -1,6 +1,13 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
+var emojiname = ["", ""],
+    rolename = ["", ""];
+
+
+
+
+
 client.once('ready', () => {
 	console.log('Ready!');
 });
@@ -43,21 +50,49 @@ function processCommand(receivedMessage) {
     console.log("Command received: " + primaryCommand)
     console.log("Arguments: " + arguments) // There may not be any arguments
 
-    if (primaryCommand == "help") {
-        helpCommand(arguments, receivedMessage)
-    } else if (primaryCommand == "multiply") {
-		multiplyCommand(arguments, receivedMessage)
-	} else if (primaryCommand == "hello") {
-		helloCommand(arguments, receivedMessage)
-	} else if (primaryCommand == "love") {
-		loveCommand(arguments, receivedMessage)
-	} else if (primaryCommand == "role") {
-		roleCommand(arguments, receivedMessage)
+	switch (primaryCommand = splitCommand[0]) {
 
-    } else {
-        receivedMessage.channel.send("I don't understand the command. Try `!help`")
-    }
-}
+		case "help":
+			helpCommand(arguments, receivedMessage)
+		break;
+
+		case "morning":
+			morningCommand(arguments, receivedMessage)
+		break;
+
+		case "night":
+			nightCommand(arguments, receivedMessage)
+		break;
+
+		case "hello":
+			helloCommand(arguments, receivedMessage)
+		break;
+
+		case "love":
+			loveCommand(arguments, receivedMessage)
+		break;
+
+		case "role":
+			roleCommand(arguments, receivedMessage)
+		break;
+
+		case "multiply":
+			multiplyCommand(arguments, receivedMessage)
+		break;
+
+		case "divide":
+			divideCommand(arguments, receivedMessage)
+		break;
+
+		case "add":
+			addCommand(arguments, receivedMessage)
+		break;
+		
+		case "minus":
+			minusCommand(arguments, receivedMessage)
+		break;
+	}
+
 
 function helloCommand(arguements, receivedMessage){
 	if (arguments.length >= 0){
@@ -68,6 +103,31 @@ function helloCommand(arguements, receivedMessage){
 	}
 
 }
+
+
+
+function morningCommand(arguements, receivedMessage){
+	if (arguments.length >= 0){
+		receivedMessage.channel.send("Good Morning," + receivedMessage.author.toString() + ":wave:" + " I hope that you have a successful day. :sunrise:")
+	}
+	else{
+		receivedMessage.channel.send("I don't understand the command. Try `!help`")
+	}
+
+}
+
+function nightCommand(arguements, receivedMessage){
+	if (arguments.length >= 0){
+		receivedMessage.channel.send("Good Night," + receivedMessage.author.toString() + ":wave:" + " I hope that you have a nice sleep. :crescent_moon: :zzz: ")
+	}
+	else{
+		receivedMessage.channel.send("I don't understand the command. Try `!help`")
+	}
+
+}
+
+
+
 
 function loveCommand(arguements, receivedMessage){
 
@@ -95,6 +155,34 @@ function helpCommand(arguments, receivedMessage) {
     }
 }
 
+function addCommand(arguments, receivedMessage) {
+    if (arguments.length < 2) {
+        receivedMessage.channel.send("Not enough values to add. Try `!add 2 4 10` or `!add 5.2 7`")
+        return
+    }
+    let product = 0 
+    arguments.forEach((value) => {
+        product = product + parseFloat(value)
+    })
+    receivedMessage.channel.send("The product of " + arguments + " added together is: " + product.toString())
+}
+
+function minusCommand(arguments, receivedMessage) {
+    if (!arguments.length == 2) {
+        receivedMessage.channel.send("Not enough values to add. Try `!minus 2 4 10` or `!minus 5.2 7`")
+        return
+    }
+	let product = 0 
+	let x = arguments[0]
+	let y = arguments[1]
+	product = x - y
+
+    receivedMessage.channel.send("The product of " + arguments + " subtracted is: " + product.toString())
+}
+
+
+
+
 function multiplyCommand(arguments, receivedMessage) {
     if (arguments.length < 2) {
         receivedMessage.channel.send("Not enough values to multiply. Try `!multiply 2 4 10` or `!multiply 5.2 7`")
@@ -109,7 +197,7 @@ function multiplyCommand(arguments, receivedMessage) {
 
 function roleCommand(arguments, receivedMessage) {
     if (arguments.length >= 1) {
-        
+		//todo
     } else {
 		
         receivedMessage.channel.send("Please specify a valid role.")
@@ -118,4 +206,5 @@ function roleCommand(arguments, receivedMessage) {
 
 
 
+}
 client.login('NzU4MzEzOTcwNTA2Mzk5NzU0.X2tI6w.YiJ8BUUCj8pU8Fy45vbeP_bW7r4');
